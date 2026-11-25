@@ -9,13 +9,13 @@ export const VideoPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [previewingVideo, setPreviewingVideo] = useState<MediaAsset | null>(null);
 
-  const videoAssets = INITIAL_MEDIA_ASSETS.filter((a) =>
+  const videoAssets = INITIAL_MEDIA_ASSETS.filter((a: MediaAsset) =>
     ['nature', 'cinematic', 'footage', 'background'].includes(a.category)
   );
 
   const filtered = selectedCategory === 'all'
     ? videoAssets
-    : videoAssets.filter((v) => v.category === selectedCategory);
+    : videoAssets.filter((v: MediaAsset) => v.category === selectedCategory);
 
   return (
     <div className="space-y-8 pb-16">
@@ -56,7 +56,7 @@ export const VideoPage: React.FC = () => {
 
       {/* Video Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((video) => (
+        {filtered.map((video: MediaAsset) => (
           <VideoCard
             key={video.id}
             asset={video}

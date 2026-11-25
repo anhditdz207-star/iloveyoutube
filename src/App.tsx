@@ -41,6 +41,7 @@ export function App() {
   const renderActivePage = () => {
     switch (activeTab) {
       case 'home':
+      case 'trending':
         return <HomePage onNavigate={handleTabChange} />;
       case 'watch':
         return <WatchPage onNavigate={handleTabChange} />;

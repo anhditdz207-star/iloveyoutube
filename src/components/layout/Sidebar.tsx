@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Home,
-  Compass,
-  Music,
+  Flame,
+  Music2,
   History,
-  Heart,
+  ThumbsUp,
   ListMusic,
-  Library,
-  ChevronDown,
-  ChevronUp,
-  Download,
-  FolderArchive,
-  Film,
   Settings,
   LogIn,
 } from 'lucide-react';
@@ -28,26 +22,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCol
   const { theme } = useTheme();
   const { user, openLoginModal } = useAuth();
   const isLight = theme === 'light';
-  const [isStudioExpanded, setIsStudioExpanded] = useState(false);
 
   const mainNav = [
     { id: 'home', label: 'Trang chủ', icon: Home },
-    { id: 'discover', label: 'Khám phá', icon: Compass },
-    { id: 'music', label: 'Âm nhạc', icon: Music },
+    { id: 'trending', label: 'Thịnh hành', icon: Flame },
+    { id: 'music', label: 'Âm nhạc', icon: Music2 },
   ];
 
   const personalNav = [
     { id: 'history', label: 'Lịch sử', icon: History },
-    { id: 'favorites', label: 'Video đã thích', icon: Heart },
+    { id: 'favorites', label: 'Video đã thích', icon: ThumbsUp },
     { id: 'playlists', label: 'Danh sách phát', icon: ListMusic },
-    { id: 'library', label: 'Thư viện của bạn', icon: Library },
-  ];
-
-  const studioNav = [
-    { id: 'downloader', label: 'Trình tải Media', icon: Download },
-    { id: 'assets', label: 'Kho tài nguyên dựng phim', icon: FolderArchive },
-    { id: 'video', label: 'Video & Footage 4K', icon: Film },
-    { id: 'settings', label: 'Cài đặt hệ thống', icon: Settings },
   ];
 
   const renderButton = (item: { id: string; label: string; icon: React.ComponentType<{ className?: string }> }) => {
@@ -86,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCol
       }`}
     >
       <div className="overflow-y-auto py-2 px-2 space-y-1">
-        {/* Section 1: Main */}
+        {/* Section 1: Main Feed */}
         <div className="space-y-0.5">
           {mainNav.map(renderButton)}
         </div>
@@ -107,28 +92,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCol
         {/* Divider */}
         <div className={`my-2 border-t ${isLight ? 'border-zinc-200' : 'border-[#272727]'}`} />
 
-        {/* Section 3: Collapsible Studio Tools Group */}
-        {!isCollapsed && (
-          <div>
-            <button
-              onClick={() => setIsStudioExpanded(!isStudioExpanded)}
-              className={`w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl transition-colors ${
-                isLight ? 'text-zinc-600 hover:bg-zinc-100' : 'text-zinc-400 hover:bg-zinc-800'
-              }`}
-            >
-              <span>Công cụ Studio &amp; Dựng phim</span>
-              {isStudioExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
-
-            {isStudioExpanded && (
-              <div className="space-y-0.5 pl-1 pt-1 animate-in fade-in slide-in-from-top-1 duration-150">
-                {studioNav.map(renderButton)}
-              </div>
-            )}
-          </div>
-        )}
-
-        {isCollapsed && studioNav.map(renderButton)}
+        {/* Section 3: Settings */}
+        <div className="space-y-0.5">
+          {renderButton({ id: 'settings', label: 'Cài đặt', icon: Settings })}
+        </div>
       </div>
 
       {/* Bottom Google Login Reminder if not logged in */}
@@ -139,11 +106,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCol
           }`}
         >
           <p className="text-[11px] text-zinc-400 leading-tight">
-            Đăng nhập Google để lưu video yêu thích và lịch sử xem của bạn.
+            Đăng nhập tài khoản Google để lưu video và playlist cá nhân.
           </p>
           <button
             onClick={openLoginModal}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-blue-500/50 text-blue-500 text-xs font-semibold hover:bg-blue-500/10 transition-colors w-fit"
+            className="w-full py-1.5 px-3 rounded-full border border-blue-500/50 text-blue-500 hover:bg-blue-500/10 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
           >
             <LogIn className="w-3.5 h-3.5" />
             <span>Đăng nhập</span>
